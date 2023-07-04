@@ -1,25 +1,46 @@
 import 'package:flutter/material.dart';
 
-
-
-class Button extends StatelessWidget {
+class Button extends StatefulWidget {
   final String _label;
-  Button(this._label);
+  final String _groupValue;
+  final Function()? onChanged;
+
+
+  const Button(this._label, this._groupValue, this.onChanged, {super.key});
+
+  @override
+  State<Button> createState() => _ButtonState(onChanged);
+}
+
+class _ButtonState extends State<Button> {
+
+  Color activeColor = Colors.teal;
+  double elevation = 8.0;
+  void Function()? onChanged;
+
+  _ButtonState(this.onChanged);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 70.0,
-      height: 75.0,
-      child: GestureDetector(
-        onTap: ()=>{
-        },
-        child: Card(
-          color: Colors.teal,
-          child: Center(child: Text(_label,textAlign: TextAlign.right, style: TextStyle( color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16.0),)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+    setState(() {
+      activeColor = (widget._label == widget._groupValue ? Colors.teal[300] : Colors.teal)!;
+      elevation = (widget._label == widget._groupValue ? 0.0 : 8.0);
+    });
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(15.0),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0)
+            )),
+            minimumSize: MaterialStateProperty.all(Size(47, 56.0)),
+            backgroundColor: MaterialStateProperty.all(activeColor),
+            elevation: MaterialStateProperty.all(elevation),
+            textStyle: MaterialStateProperty.all(TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700))
           ),
+          onPressed: onChanged,
+            child: Center(child: Text(widget._label,)),
         ),
       ),
     );

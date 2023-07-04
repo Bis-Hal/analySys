@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class HeadingOne extends StatelessWidget {
+class HeadingThree extends StatelessWidget {
   final String _heading;
 
-  const HeadingOne(this._heading, {Key? key}) : super(key: key);
+  const HeadingThree(this._heading, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +11,8 @@ class HeadingOne extends StatelessWidget {
       _heading,
       style: const TextStyle(
         color: Colors.white,
-        fontSize: 20.0,
-        fontFamily: 'RobotoSlab',
+        fontSize: 24.0,
+        fontFamily: 'RobotoSlab'
       ),
       textAlign: TextAlign.start,
     );
